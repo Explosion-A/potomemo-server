@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tt.potomemo.modules.user.dao.UserDao">
+    
+	<sql id="userColumns">
+		a.id AS "id",
+		a.user_type AS "userType",
+		a.login_name AS "loginName",
+		a.password AS "password",
+		a.email AS "email",
+		a.phone AS "phone",
+		a.photo AS "photo",
+		a.login_ip AS "loginIp",
+		a.create_time AS "createTime",
+		a.last_login_time AS "lastLoginTime",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="userJoins">
+	</sql>
+    
+	<select id="get" resultType="User">
+		SELECT 
+			<include refid="userColumns"/>
+		FROM user a
+		<include refid="userJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="User">
+		SELECT 
+			<include refid="userColumns"/>
+		FROM user a
+		<include refid="userJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="userType != null and userType != ''">
+				AND a.user_type = #{userType}
+			</if>
+			<if test="loginName != null and loginName != ''">
+				AND a.login_name = #{loginName}
+			</if>
+			<if test="password != null and password != ''">
+				AND a.password = #{password}
+			</if>
+			<if test="email != null and email != ''">
+				AND a.email = #{email}
+			</if>
+			<if test="phone != null and phone != ''">
+				AND a.phone = #{phone}
+			</if>
+			<if test="beginCreateTime != null and endCreateTime != null and beginCreateTime != '' and endCreateTime != ''">
+				AND a.create_time BETWEEN #{beginCreateTime} AND #{endCreateTime}
+			</if>
+			<if test="beginLastLoginTime != null and endLastLoginTime != null and beginLastLoginTime != '' and endLastLoginTime != ''">
+				AND a.last_login_time BETWEEN #{beginLastLoginTime} AND #{endLastLoginTime}
+			</if>
+			<if test="delFlag != null and delFlag != ''">
+				AND a.del_flag = #{delFlag}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="User">
+		SELECT 
+			<include refid="userColumns"/>
+		FROM user a
+		<include refid="userJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO user(
+			id,
+			user_type,
+			login_name,
+			password,
+			email,
+			phone,
+			photo,
+			login_ip,
+			create_time,
+			last_login_time,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{userType},
+			#{loginName},
+			#{password},
+			#{email},
+			#{phone},
+			#{photo},
+			#{loginIp},
+			#{createTime},
+			#{lastLoginTime},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE user SET 	
+			user_type = #{userType},
+			login_name = #{loginName},
+			password = #{password},
+			email = #{email},
+			phone = #{phone},
+			photo = #{photo},
+			login_ip = #{loginIp},
+			create_time = #{createTime},
+			last_login_time = #{lastLoginTime},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE user SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
