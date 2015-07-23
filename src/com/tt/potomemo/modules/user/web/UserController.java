@@ -66,6 +66,12 @@ public class UserController extends BaseController {
 		return "redirect:"+Global.getAdminPath()+"/user/user/?repage";
 	}
 	
+	@RequestMapping(value = "register")
+	public String register(User user, Model model, RedirectAttributes redirectAttributes,HttpServletResponse response) {
+		int register = userService.register(user);
+		return renderString(response, register);
+	}
+	
 	@RequestMapping(value = "delete")
 	public String delete(User user, RedirectAttributes redirectAttributes) {
 		userService.delete(user);

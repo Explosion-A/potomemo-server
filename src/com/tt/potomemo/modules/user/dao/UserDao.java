@@ -1,5 +1,9 @@
 package com.tt.potomemo.modules.user.dao;
 
+import javax.jws.soap.SOAPBinding.Use;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.tt.potomemo.common.persistence.CrudDao;
 import com.tt.potomemo.common.persistence.annotation.MyBatisDao;
 import com.tt.potomemo.modules.user.entity.User;
@@ -10,5 +14,7 @@ import com.tt.potomemo.modules.user.entity.User;
  */
 @MyBatisDao
 public interface UserDao extends CrudDao<User> {
+	
+	Use getUserByPhoneOrEmail(@Param("phoneOrEmail")String phoneOrEmail);
 	
 }

@@ -28,6 +28,14 @@
 		WHERE a.id = #{id}
 	</select>
 	
+	<select id="getUserByPhoneOrEmail" resultType="User">
+		SELECT 
+			<include refid="userColumns"/>
+		FROM user a
+		<include refid="userJoins"/>
+		WHERE a.phone = #{phoneOrEmail} or a.email = #{phoneOrEmail}
+	</select>
+	
 	<select id="findList" resultType="User">
 		SELECT 
 			<include refid="userColumns"/>
