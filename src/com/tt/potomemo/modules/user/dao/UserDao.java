@@ -15,6 +15,6 @@ import com.tt.potomemo.modules.user.entity.User;
 @MyBatisDao
 public interface UserDao extends CrudDao<User> {
 	
-	Use getUserByPhoneOrEmail(@Param("phoneOrEmail")String phoneOrEmail);
+	User getUserByPhoneOrEmail(@Param("phoneOrEmail")String phoneOrEmail);
 	
 }

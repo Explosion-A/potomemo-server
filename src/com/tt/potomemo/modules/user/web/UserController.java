@@ -72,6 +72,12 @@ public class UserController extends BaseController {
 		return renderString(response, register);
 	}
 	
+	@RequestMapping(value = "login")
+	public String login(User user, Model model, RedirectAttributes redirectAttributes,HttpServletResponse response) {
+		User login = userService.login(user);
+		return renderString(response, login);
+	}
+	
 	@RequestMapping(value = "delete")
 	public String delete(User user, RedirectAttributes redirectAttributes) {
 		userService.delete(user);

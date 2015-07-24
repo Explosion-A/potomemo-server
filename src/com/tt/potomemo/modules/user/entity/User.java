@@ -28,6 +28,7 @@ public class User extends DataEntity<User> {
 	private Date endCreateTime;		// 结束 创建时间
 	private Date beginLastLoginTime;		// 开始 上次登录时间
 	private Date endLastLoginTime;		// 结束 上次登录时间
+	private String state;
 	
 	public User() {
 		super();
@@ -148,5 +149,14 @@ public class User extends DataEntity<User> {
 	public void setEndLastLoginTime(Date endLastLoginTime) {
 		this.endLastLoginTime = endLastLoginTime;
 	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+	
 		
 }
