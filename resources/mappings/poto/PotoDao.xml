@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tt.potomemo.modules.poto.dao.PotoDao">
+    
+	<sql id="potoColumns">
+		a.id AS "id",
+		a.user_id AS "userId",
+		a.img_normal AS "imgNormal",
+		a.img_small AS "imgSmall",
+		a.img_label AS "imgLabel",
+		a.content AS "content",
+		a.position AS "position",
+		a.syn AS "syn"
+	</sql>
+	
+	<sql id="potoJoins">
+	</sql>
+    
+	<select id="get" resultType="Poto">
+		SELECT 
+			<include refid="potoColumns"/>
+		FROM poto a
+		<include refid="potoJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Poto">
+		SELECT 
+			<include refid="potoColumns"/>
+		FROM poto a
+		<include refid="potoJoins"/>
+		<where>
+			
+			<if test="userId != null and userId != ''">
+				AND a.user_id = #{userId}
+			</if>
+			<if test="imgLabel != null and imgLabel != ''">
+				AND a.img_label = #{imgLabel}
+			</if>
+			<if test="content != null and content != ''">
+				AND a.content LIKE 
+					<if test="dbName == 'oracle'">'%'||#{content}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{content}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{content},'%')</if>
+			</if>
+			<if test="position != null and position != ''">
+				AND a.position LIKE 
+					<if test="dbName == 'oracle'">'%'||#{position}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{position}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{position},'%')</if>
+			</if>
+			<if test="syn != null and syn != ''">
+				AND a.syn = #{syn}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Poto">
+		SELECT 
+			<include refid="potoColumns"/>
+		FROM poto a
+		<include refid="potoJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO poto(
+			id,
+			user_id,
+			img_normal,
+			img_small,
+			img_label,
+			content,
+			position,
+			syn
+		) VALUES (
+			#{id},
+			#{userId},
+			#{imgNormal},
+			#{imgSmall},
+			#{imgLabel},
+			#{content},
+			#{position},
+			#{syn}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE poto SET 	
+			user_id = #{userId},
+			img_normal = #{imgNormal},
+			img_small = #{imgSmall},
+			img_label = #{imgLabel},
+			content = #{content},
+			position = #{position},
+			syn = #{syn}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM poto
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
