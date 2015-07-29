@@ -1,0 +1,35 @@
+
+<project default="compile">
+	<path id="compile.classpath">
+		<fileset dir="WebContent/WEB-INF/lib">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="forbuild\lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<target name="clean">
+		<delete dir="WebContent/WEB-INF/classes"/>
+	</target>
+
+	<target name="compile" depends="clean">
+		<mkdir dir="WebContent/WEB-INF/classes" />
+		<javac srcdir="src" destdir="WebContent/WEB-INF/classes"
+			includeantruntime="false" debug="true" encoding="UTF-8" >
+			<classpath refid="compile.classpath" />
+		</javac>
+		
+		<copy todir="WebContent/WEB-INF/classes">
+            <fileset dir="resources">
+                <include name="*" />
+            	<include name="cache/*" />
+            	<include name="mappings/*/*" />
+            </fileset>
+        </copy>
+	</target>
+
+	<target name="jar" depends="compile">
+		<jar destfile="output/potomemo-server.jar" basedir="WebContent/WEB-INF/classes" />
+	</target>
+</project>
