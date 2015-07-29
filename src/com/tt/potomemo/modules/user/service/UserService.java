@@ -48,17 +48,17 @@ public class UserService extends CrudService<UserDao, User> {
 	@Transactional(readOnly = false)
 	public int register(User user){
 		int state=0; //失败
-		User userByPhoneOrEmail = userDao.getUserByPhoneOrEmail(user.getPhone());
-		if(userByPhoneOrEmail == null){
-			boolean mobileNO = PhoneAndEmailUtil.isMobileNO(user.getPhone());
-			boolean email = PhoneAndEmailUtil.isEmail(user.getPhone());
-			if(!mobileNO && !email){
-				state = 0;
-			}else{
+		boolean mobileNO = PhoneAndEmailUtil.isMobileNO(user.getPhone());
+		boolean email = PhoneAndEmailUtil.isEmail(user.getPhone());
+		if(!mobileNO && !email){
+			state = 0;
+		}else{
+			User userByPhoneOrEmail = userDao.getUserByPhoneOrEmail(user.getPhone());
+			if(userByPhoneOrEmail == null){
 				String password = user.getPassword();
 				if(password!=null && password.length()>=6 && password.length()<=18){
 					String md5String = MD5Util.getMD5String(password);
-					user.setPassword(password);
+					user.setPassword(md5String);
 					if(mobileNO){
 						super.save(user);
 						state = 1; //成功
@@ -71,9 +71,9 @@ public class UserService extends CrudService<UserDao, User> {
 				}else{
 					state = 3 ; //密码长度不符合规范
 				}
+			}else{
+				state = 2;//已经存在该用户
 			}
-		}else{
-			state = 2;//已经存在该用户
 		}
 		return state;
 	}

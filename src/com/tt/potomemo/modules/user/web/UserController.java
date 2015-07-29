@@ -24,7 +24,7 @@ import com.tt.potomemo.modules.user.service.UserService;
  * @version 2015-07-20
  */
 @Controller
-@RequestMapping(value = "${adminPath}/user/user")
+@RequestMapping(value = "${adminPath}/user")
 public class UserController extends BaseController {
 
 	@Autowired
