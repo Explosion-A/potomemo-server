@@ -2,6 +2,7 @@ package com.tt.potomemo.modules.user.entity;
 
 import java.util.Date;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -17,6 +18,8 @@ public class User extends DataEntity<User> {
 	private static final long serialVersionUID = 1L;
 	private Integer userType;		// 用户类型
 	private String loginName;		// 登录名
+	
+	@JsonIgnore
 	private String password;		// 密码
 	private String email;		// email
 	private String phone;		// phone

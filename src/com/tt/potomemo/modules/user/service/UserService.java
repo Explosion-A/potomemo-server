@@ -84,12 +84,13 @@ public class UserService extends CrudService<UserDao, User> {
 			userByPhoneOrEmail = new User();
 			userByPhoneOrEmail.setState("accountErr");
 		}else{
-			if(!MD5Util.getMD5String(user.getPassword()).equals(userByPhoneOrEmail.getPassword())){ //密码不对
+			if(user.getPassword()==null || !MD5Util.getMD5String(user.getPassword()).equals(userByPhoneOrEmail.getPassword())){ //密码不对
 				userByPhoneOrEmail.setState("pswErr");
 			}else{
 				userByPhoneOrEmail.setState("ok");
 			}
 		}
+		userByPhoneOrEmail.setPassword(null);
 		return userByPhoneOrEmail;
 	}
 	
