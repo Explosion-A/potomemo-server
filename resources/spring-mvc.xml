@@ -11,7 +11,7 @@
 	<context:property-placeholder ignore-unresolvable="true" location="classpath:application.properties" />
 	
 	<!-- 使用Annotation自动注册Bean,只扫描@Controller -->
-	<context:component-scan base-package="com.tt.potomemo" use-default-filters="false"><!-- base-package 如果多个，用“,”分隔 -->
+	<context:component-scan base-package="com.irady.potomemo" use-default-filters="false"><!-- base-package 如果多个，用“,”分隔 -->
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
     
@@ -29,7 +29,7 @@
                 </property>
                 <property name="prettyPrint" value="false"/>
                 <property name="objectMapper">  
-                    <bean class="com.tt.potomemo.common.mapper.JsonMapper"></bean>  
+                    <bean class="com.irady.potomemo.common.mapper.JsonMapper"></bean>  
                 </property> 
             </bean>
             <!-- 使用XML格式输出数据 -->
@@ -41,10 +41,10 @@
 				        </property>
 				        <property name="annotatedClasses">
 				            <list>
-				                <value>com.tt.potomemo.common.persistence.BaseEntity</value>
-				                <!-- <value>com.tt.potomemo.common.supcan.treelist.TreeList</value>
-				                <value>com.tt.potomemo.common.supcan.treelist.cols.Col</value>
-				                <value>com.tt.potomemo.common.supcan.treelist.cols.Group</value> -->
+				                <value>com.irady.potomemo.common.persistence.BaseEntity</value>
+				                <!-- <value>com.irady.potomemo.common.supcan.treelist.TreeList</value>
+				                <value>com.irady.potomemo.common.supcan.treelist.cols.Col</value>
+				                <value>com.irady.potomemo.common.supcan.treelist.cols.Group</value> -->
 				            </list>
 				        </property>
 				    </bean>
@@ -87,12 +87,12 @@
 			<mvc:mapping path="${adminPath}/**" />
 			<mvc:exclude-mapping path="${adminPath}/"/>
 			<mvc:exclude-mapping path="${adminPath}/login"/>
-			<bean class="com.tt.potomemo.modules.sys.interceptor.LogInterceptor" />
+			<bean class="com.irady.potomemo.modules.sys.interceptor.LogInterceptor" />
 		</mvc:interceptor>
 		<!-- 手机视图拦截器 -->
 		<!-- <mvc:interceptor>
 			<mvc:mapping path="/**" />
-			<bean class="com.tt.potomemo.modules.sys.interceptor.MobileInterceptor" />
+			<bean class="com.irady.potomemo.modules.sys.interceptor.MobileInterceptor" />
 		</mvc:interceptor> -->
 	</mvc:interceptors>
 	

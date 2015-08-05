@@ -41,12 +41,12 @@
 	
 	<!-- 类型别名 -->
 	<typeAliases>
-		<typeAlias alias="Page" type="com.tt.potomemo.common.persistence.Page" /><!--分页  -->
+		<typeAlias alias="Page" type="com.irady.potomemo.common.persistence.Page" /><!--分页  -->
 	</typeAliases>
 	
 	<!-- 插件配置 -->
 	<plugins>
-		<plugin interceptor="com.tt.potomemo.common.persistence.interceptor.PaginationInterceptor" />
+		<plugin interceptor="com.irady.potomemo.common.persistence.interceptor.PaginationInterceptor" />
     </plugins>
 	
 </configuration>
