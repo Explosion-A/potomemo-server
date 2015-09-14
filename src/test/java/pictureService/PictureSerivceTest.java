@@ -1,4 +1,4 @@
-package pictureService;
+package test.java.pictureService;
 
 import org.junit.Before;
 import org.junit.Test;
