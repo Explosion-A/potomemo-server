@@ -63,7 +63,15 @@
 		<servlet-name>DruidStatView</servlet-name>
 		<url-pattern>/druid/*</url-pattern>
 	</servlet-mapping>
-	
+	<!-- WeixinCheckUrl -->
+	<servlet>
+		<servlet-name>checkurl</servlet-name>
+		<servlet-class>com.irady.potomemo.weixin.web.WeixinCheckUrl</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>checkurl</servlet-name>
+		<url-pattern>/checkUrl</url-pattern>
+	</servlet-mapping>
 	<error-page>
 		<error-code>500</error-code>
 		<location>/WEB-INF/views/error/500.jsp</location>
